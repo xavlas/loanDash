@@ -1,8 +1,10 @@
 import axios from 'axios'
 import type { User, LoginCredentials, RegisterData } from '@/types'
 
-// Configuration de l'URL de base de l'API
-const API_BASE_URL = 'http://localhost:3001/api'
+// Configuration de l'URL de base de l'API via Vite env (préfixe VITE_)
+// En développement, créez un fichier `.env` ou `.env.local` avec VITE_API_BASE_URL
+// En production, définissez `VITE_API_BASE_URL` sur l'URL publique de l'API (ex: https://my-api.web.app/api)
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || 'http://localhost:3001/api'
 
 // Créer une instance axios avec la configuration de base
 const apiClient = axios.create({
