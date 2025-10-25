@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { User, LoginCredentials, RegisterData } from '@/types'
 
 // Configuration de l'URL de base de l'API
-const API_BASE_URL = 'http://localhost:3002/api'
+const API_BASE_URL = 'http://localhost:3001/api'
 
 // Créer une instance axios avec la configuration de base
 const apiClient = axios.create({
