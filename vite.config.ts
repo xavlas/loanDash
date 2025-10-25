@@ -11,10 +11,17 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'https://api.lassus-xavier.workers.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''), // enlève /api du début de l’URL
+      },
+    },
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
 })
