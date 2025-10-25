@@ -51,15 +51,6 @@
         </div>
 
         <div class="text-center">
-          <p class="text-sm text-gray-600">
-            Demo credentials:
-            <br>
-            <code class="bg-gray-100 px-1 rounded">admin@example.com / {{ adminSecret }}</code>
-            <br>
-            <code class="bg-gray-100 px-1 rounded">user@example.com / password</code>
-            <br>
-            <span class="text-xs text-blue-700">(VITE_ADMIN_SECRET: <code class="bg-gray-100 px-1 rounded">{{ adminSecret }}</code>)</span>
-          </p>
         </div>
       </form>
     </div>
