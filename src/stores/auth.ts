@@ -13,9 +13,10 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (credentials: LoginCredentials) => {
     loading.value = true
     error.value = null
-    // Validation locale (demo)
+    // Récupère le secret admin depuis l'environnement
+    const adminSecret = import.meta.env.VITE_ADMIN_SECRET || 'password'
     const demoUsers = [
-      { email: 'admin@example.com', password: 'password', firstName: 'Admin', lastName: 'User', role: 'admin' as 'admin', createdAt: new Date(), lastLogin: new Date() },
+      { email: 'admin@example.com', password: adminSecret, firstName: 'Admin', lastName: 'User', role: 'admin' as 'admin', createdAt: new Date(), lastLogin: new Date() },
       { email: 'user@example.com', password: 'password', firstName: 'John', lastName: 'Doe', role: 'user' as 'user', createdAt: new Date(), lastLogin: new Date() }
     ]
     const found = demoUsers.find(u => u.email === credentials.email && u.password === credentials.password)
