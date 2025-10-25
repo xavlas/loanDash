@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { User, LoginCredentials, RegisterData } from '@/types'
 
 // Configuration de l'URL de base de l'API
-const API_BASE_URL = 'https://6c79d18c-api-server.lassus-xavier.workers.dev/api'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 // Créer une instance axios avec la configuration de base
 const apiClient = axios.create({
