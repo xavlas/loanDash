@@ -81,6 +81,12 @@ const navigation = computed(() => [
     current: route.name === 'Profile'
   },
   {
+    name: 'Notes',
+    to: '/notes',
+    icon: UserIcon,
+    current: route.name === 'Notes'
+  },
+  {
     name: 'Settings',
     to: '/settings',
     icon: Cog6ToothIcon,
