@@ -13,8 +13,9 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (credentials: LoginCredentials) => {
     loading.value = true
     error.value = null
-    // Récupère le secret admin depuis l'environnement
-    const adminSecret = import.meta.env.VITE_ADMIN_SECRET 
+    // Mot de passe 'password' accepté en local, sinon VITE_ADMIN_SECRET
+    const isLocal = import.meta.env.MODE === 'development'
+    const adminSecret = isLocal ? 'password' : import.meta.env.VITE_ADMIN_SECRET
     const demoUsers = [
       { email: 'xavier@lassus.fr', password: adminSecret, firstName: 'Admin', lastName: 'User', role: 'admin' as 'admin', createdAt: new Date(), lastLogin: new Date() }
     ]
