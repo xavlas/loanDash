@@ -1,6 +1,10 @@
 import { Hono } from 'hono'
 
 const app = new Hono()
+import { cors } from 'hono/cors'
+
+// Middleware CORS pour toutes les routes
+app.use('*', cors())
 
 // Stockage en mémoire
 const notes = []

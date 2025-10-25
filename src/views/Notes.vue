@@ -23,7 +23,7 @@ import { ref, onMounted } from 'vue'
 
 const notes = ref<string[]>([])
 const noteInput = ref('')
-const apiUrl = '/notes' // à adapter si besoin
+const apiUrl = (import.meta.env.VITE_NOTES_API_URL || 'http://localhost:8787') + '/notes'
 
 const fetchNotes = async () => {
   try {
