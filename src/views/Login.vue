@@ -82,6 +82,8 @@ const form = ref({
 const loading = ref(false)
 const error = ref('')
 
+const adminSecret = ref(import.meta.env.VITE_ADMIN_SECRET || 'password')
+
 const handleSubmit = async () => {
   loading.value = true
   error.value = ''
