@@ -13,17 +13,29 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (credentials: LoginCredentials) => {
     loading.value = true
     error.value = null
-    
-    try {
-      const userData = await authService.login(credentials)
-      user.value = userData
-      return userData
-    } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Login failed'
-      throw err
-    } finally {
-      loading.value = false
+    // Validation locale (demo)
+    const demoUsers = [
+      { email: 'admin@example.com', password: 'password', firstName: 'Admin', lastName: 'User', role: 'admin' as 'admin', createdAt: new Date(), lastLogin: new Date() },
+      { email: 'user@example.com', password: 'password', firstName: 'John', lastName: 'Doe', role: 'user' as 'user', createdAt: new Date(), lastLogin: new Date() }
+    ]
+    const found = demoUsers.find(u => u.email === credentials.email && u.password === credentials.password)
+    await new Promise(resolve => setTimeout(resolve, 500)) // Simule un délai réseau
+    if (found) {
+      user.value = {
+        email: found.email,
+        firstName: found.firstName,
+        lastName: found.lastName,
+        role: found.role,
+        id: found.email, // id fictif
+        createdAt: found.createdAt,
+        lastLogin: found.lastLogin
+      }
+      return user.value
+    } else {
+      error.value = 'Email ou mot de passe incorrect'
+      throw new Error(error.value)
     }
+    loading.value = false
   }
 
   const register = async (data: RegisterData) => {
