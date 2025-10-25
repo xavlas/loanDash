@@ -1,5 +1,5 @@
 {
-  "name": "api-server",
+  "name": "api",
   "main": "server.js",
   "compatibility_date": "2025-10-25"
 }
