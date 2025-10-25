@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Récupère le secret admin depuis l'environnement
     const adminSecret = import.meta.env.VITE_ADMIN_SECRET 
     const demoUsers = [
-      { email: 'xavier', password: adminSecret, firstName: 'Admin', lastName: 'User', role: 'admin' as 'admin', createdAt: new Date(), lastLogin: new Date() }
+      { email: 'xavier@lassus.fr', password: adminSecret, firstName: 'Admin', lastName: 'User', role: 'admin' as 'admin', createdAt: new Date(), lastLogin: new Date() }
     ]
     const found = demoUsers.find(u => u.email === credentials.email && u.password === credentials.password)
     await new Promise(resolve => setTimeout(resolve, 500)) // Simule un délai réseau
