@@ -19,15 +19,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const notes = ref<string[]>([])
 const noteInput = ref('')
+const apiUrl = '/notes' // à adapter si besoin
 
-const addNote = () => {
-  if (noteInput.value.trim()) {
-    notes.value.unshift(noteInput.value.trim())
-    noteInput.value = ''
+const fetchNotes = async () => {
+  try {
+    const res = await fetch(apiUrl)
+    if (res.ok) {
+      notes.value = await res.json()
+    }
+  } catch (e) {
+    // ignore
   }
 }
+
+const addNote = async () => {
+  if (noteInput.value.trim()) {
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note: noteInput.value.trim() })
+    })
+    if (res.ok) {
+      await fetchNotes()
+      noteInput.value = ''
+    }
+  }
+}
+
+onMounted(fetchNotes)
 </script>
