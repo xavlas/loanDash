@@ -1,21 +1,29 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 
 const app = new Hono()
 
-// Configuration CORS
-app.use('*', cors({
-  origin: [
-    'http://localhost:5173', 
-    'https://loan-dash.lassus-xavier.workers.dev',
-    'https://6c79d18c-api-server.lassus-xavier.workers.dev',
-    '*'  // Autoriser toutes les origines en développement
-  ],
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  exposeHeaders: ['*']
-}))
+// Middleware CORS personnalisé
+app.use('*', async (c, next) => {
+  // Récupérer l'origine de la requête
+  const origin = c.req.header('Origin') || '*'
+  
+  // Définir les en-têtes CORS
+  c.header('Access-Control-Allow-Origin', origin)
+  c.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  c.header('Access-Control-Max-Age', '86400')
+  c.header('Access-Control-Allow-Credentials', 'true')
+
+  // Gérer les requêtes OPTIONS (preflight)
+  if (c.req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: c.res.headers
+    })
+  }
+
+  await next()
+})
 
 // Route santé
 app.get('/api/health', (c) => c.json({ status: 'OK', message: 'API Hono fonctionne', timestamp: new Date().toISOString() }))
