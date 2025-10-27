@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev src/notesApi.js",
+    "dev": "wrangler dev src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

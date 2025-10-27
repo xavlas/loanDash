@@ -1,0 +1,10 @@
+name = "loan-dash-api"
+main = "src/index.js"
+compatibility_date = "2023-01-01"
+
+[build]
+command = ""
+
+[dev]
+ip = "127.0.0.1"
+port = 8787
