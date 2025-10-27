@@ -5,14 +5,20 @@ const app = new Hono()
 // Middleware CORS personnalisé
 app.use('*', async (c, next) => {
   // Récupérer l'origine de la requête
-  const origin = c.req.header('Origin') || '*'
+  const origin = c.req.header('Origin')
+  const allowedOrigins = [
+    'https://loandash.pages.dev',
+    'http://localhost:5173'  // Pour le développement local
+  ]
   
-  // Définir les en-têtes CORS
-  c.header('Access-Control-Allow-Origin', origin)
-  c.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  c.header('Access-Control-Max-Age', '86400')
-  c.header('Access-Control-Allow-Credentials', 'true')
+  // Vérifier si l'origine est autorisée
+  if (origin && allowedOrigins.includes(origin)) {
+    c.header('Access-Control-Allow-Origin', origin)
+    c.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    c.header('Access-Control-Max-Age', '86400')
+    c.header('Access-Control-Allow-Credentials', 'true')
+  }
 
   // Gérer les requêtes OPTIONS (preflight)
   if (c.req.method === 'OPTIONS') {
