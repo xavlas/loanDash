@@ -1,6 +1,21 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 
 const app = new Hono()
+
+// Configuration CORS
+app.use('*', cors({
+  origin: [
+    'http://localhost:5173', 
+    'https://loan-dash.lassus-xavier.workers.dev',
+    'https://6c79d18c-api-server.lassus-xavier.workers.dev',
+    '*'  // Autoriser toutes les origines en développement
+  ],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  exposeHeaders: ['*']
+}))
 
 // Route santé
 app.get('/api/health', (c) => c.json({ status: 'OK', message: 'API Hono fonctionne', timestamp: new Date().toISOString() }))
